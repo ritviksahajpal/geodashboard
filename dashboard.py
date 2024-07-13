@@ -6,6 +6,9 @@ import panel as pn
 file_path = r'regional_cei_slope_v3.csv'
 data = pd.read_csv(file_path)
 
+# Debug print to verify data loading
+print(data.head())
+
 # Extract unique values for dropdowns
 countries = data['Country'].unique().tolist()
 
@@ -32,6 +35,9 @@ def update_region_and_crop_options(country):
     if crops:
         crop_dropdown.value = crops[0]
 
+# Initial setup of region and crop dropdowns
+update_region_and_crop_options(countries[0])
+
 # Function to filter data based on dropdown selections
 @pn.depends(country_dropdown.param.value, region_dropdown.param.value, crop_dropdown.param.value, season_dropdown.param.value)
 def update_plot(country, region, crop, season):
@@ -50,14 +56,11 @@ def update_plot(country, region, crop, season):
         print("No data available for the selected combination.")  # Debug print for empty data
         return pn.pane.Markdown("No data available for the selected combination.")
 
-# Initial setup of region and crop dropdowns
-update_region_and_crop_options(countries[0])
-
 # Create the dashboard layout
 layout = pn.Column(
     pn.Row(country_dropdown, region_dropdown, crop_dropdown, season_dropdown),
-    pn.bind(update_plot, country_dropdown, region_dropdown, crop_dropdown, season_dropdown)
+    pn.panel(update_plot, parameters=[country_dropdown, region_dropdown, crop_dropdown, season_dropdown])
 )
 
 # Display the dashboard
-pn.serve(layout)
+pn.serve(layout, address="0.0.0.0", port=5006, allow_websocket_origin=["geodashboard-cc6e73190aa0.herokuapp.com"])
