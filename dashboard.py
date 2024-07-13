@@ -59,8 +59,11 @@ def update_plot(country, region, crop, season):
 # Create the dashboard layout
 layout = pn.Column(
     pn.Row(country_dropdown, region_dropdown, crop_dropdown, season_dropdown),
-    pn.panel(update_plot, parameters=[country_dropdown, region_dropdown, crop_dropdown, season_dropdown])
+    pn.bind(update_plot, country_dropdown, region_dropdown, crop_dropdown, season_dropdown)
 )
 
+# Get the port number from the environment variable
+port = int(os.environ.get('PORT', 5006))
+
 # Display the dashboard
-pn.serve(layout, address="0.0.0.0", port=5006, allow_websocket_origin=["geodashboard-cc6e73190aa0.herokuapp.com"])
+pn.serve(layout, address="0.0.0.0", port=port, allow_websocket_origin=["geodashboard-cc6e73190aa0.herokuapp.com"])
