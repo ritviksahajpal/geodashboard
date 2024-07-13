@@ -7,9 +7,6 @@ import os
 file_path = r'regional_cei_slope_v3.csv'
 data = pd.read_csv(file_path)
 
-# Debug print to verify data loading
-print(data.head())
-
 # Extract unique values for dropdowns
 countries = data['Country'].unique().tolist()
 
@@ -66,4 +63,5 @@ layout = pn.Column(
 port = int(os.environ.get('PORT', 5006))
 
 # Display the dashboard
-pn.serve(layout, address="0.0.0.0", port=port, allow_websocket_origin=["geodashboard-cc6e73190aa0.herokuapp.com"])
+if __name__ == '__main__':
+    pn.serve(layout, address="0.0.0.0", port=port, allow_websocket_origin=["geodashboard-cc6e73190aa0.herokuapp.com"])
