@@ -56,7 +56,7 @@ update_region_and_crop_options(countries[0])
 # Create the dashboard
 dashboard = pn.Column(
     pn.Row(country_dropdown, region_dropdown, crop_dropdown, season_dropdown),
-    update_plot
+    pn.bind(update_plot, country_dropdown, region_dropdown, crop_dropdown, season_dropdown)
 )
 
 # Display the dashboard
