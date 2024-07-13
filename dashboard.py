@@ -1,6 +1,7 @@
 import pandas as pd
 import hvplot.pandas
 import panel as pn
+import os
 
 # Load the CSV file
 file_path = r'regional_cei_slope_v3.csv'
