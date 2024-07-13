@@ -3,7 +3,7 @@ import hvplot.pandas
 import panel as pn
 
 # Load the CSV file
-file_path = r'D:\Users\ritvik\projects\GEOGLAM\Output\fao\regional_cei_slope.csv'
+file_path = r'regional_cei_slope_v3.csv'
 data = pd.read_csv(file_path)
 
 # Extract unique values for dropdowns
