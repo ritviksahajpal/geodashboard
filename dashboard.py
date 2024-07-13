@@ -6,6 +6,9 @@ import panel as pn
 file_path = r'regional_cei_slope_v3.csv'
 data = pd.read_csv(file_path)
 
+# Debug print to verify data loading
+print(data.head())
+
 # Extract unique values for dropdowns
 countries = data['Country'].unique().tolist()
 
@@ -36,6 +39,9 @@ def update_plot(country, region, crop, season):
                          (data['Crop'] == crop) &
                          (data['Season'] == season)]
 
+    # Debug print to verify filtered data
+    print(filtered_data)
+    
     if not filtered_data.empty:
         plot = filtered_data.hvplot.scatter(x='Slope', y='Intercept',
                                             hover_cols=['Growth Stage', 'p-value', 'Index', 'Description'])
