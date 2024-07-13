@@ -20,7 +20,7 @@ season_dropdown = pn.widgets.Select(name='Season', options=data['Season'].unique
 def update_region_and_crop_options(country):
     print(f"Selected Country: {country}")
     filtered_data = data[data['Country'] == country]
-    print(filtered_data)
+    print(filtered_data.head())  # Debug print to verify filtered data
     regions = filtered_data['Region'].unique().tolist()
     crops = filtered_data['Crop'].unique().tolist()
     
@@ -40,12 +40,14 @@ def update_plot(country, region, crop, season):
                          (data['Region'] == region) &
                          (data['Crop'] == crop) &
                          (data['Season'] == season)]
-    print(filtered_data)
+    print(filtered_data.head())  # Debug print to verify filtered data
     
     if not filtered_data.empty:
         plot = filtered_data.hvplot.scatter(x='Slope', y='Intercept', hover_cols=['Growth Stage', 'p-value', 'Index', 'Description'])
+        print("Plot created successfully.")  # Debug print to verify plot creation
         return plot
     else:
+        print("No data available for the selected combination.")  # Debug print for empty data
         return pn.pane.Markdown("No data available for the selected combination.")
 
 # Initial setup of region and crop dropdowns
