@@ -6,9 +6,6 @@ import panel as pn
 file_path = r'regional_cei_slope_v3.csv'
 data = pd.read_csv(file_path)
 
-# Debug print to verify data loading
-print(data.head())
-
 # Extract unique values for dropdowns
 countries = data['Country'].unique().tolist()
 
@@ -29,6 +26,11 @@ def update_region_and_crop_options(country):
     
     region_dropdown.options = regions
     crop_dropdown.options = crops
+    
+    if regions:
+        region_dropdown.value = regions[0]
+    if crops:
+        crop_dropdown.value = crops[0]
 
 # Function to filter data based on dropdown selections
 @pn.depends(country_dropdown.param.value, region_dropdown.param.value, crop_dropdown.param.value, season_dropdown.param.value)
