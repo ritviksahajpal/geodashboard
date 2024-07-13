@@ -39,7 +39,6 @@ def update_region_and_crop_options(country):
 update_region_and_crop_options(countries[0])
 
 # Function to filter data based on dropdown selections
-@pn.depends(country_dropdown.param.value, region_dropdown.param.value, crop_dropdown.param.value, season_dropdown.param.value)
 def update_plot(country, region, crop, season):
     print(f"Selections - Country: {country}, Region: {region}, Crop: {crop}, Season: {season}")
     filtered_data = data[(data['Country'] == country) &
@@ -59,7 +58,7 @@ def update_plot(country, region, crop, season):
 # Create the dashboard layout
 layout = pn.Column(
     pn.Row(country_dropdown, region_dropdown, crop_dropdown, season_dropdown),
-    pn.bind(update_plot, country_dropdown, region_dropdown, crop_dropdown, season_dropdown)
+    pn.bind(update_plot, country=country_dropdown, region=region_dropdown, crop=crop_dropdown, season=season_dropdown)
 )
 
 # Get the port number from the environment variable
